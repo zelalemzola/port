@@ -42,20 +42,11 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="text-2xl font-bold relative group">
-            <span className="text-primary">Z</span>
-            <span className="relative">
-              elalem
-              <motion.span
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"
-                whileHover={{ width: "100%" }}
-              />
-            </span>
-          </Link>
+        <div className="flex h-16 items-center justify-center">
+          
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-8 text-lg">
             {navLinks.map((link) => (
               <NavLink key={link.href} href={link.href} active={pathname === link.href}>
                 {link.label}

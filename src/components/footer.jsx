@@ -70,7 +70,7 @@ export default function Footer() {
             <div className="space-y-3">
               <p className="flex items-center text-muted-foreground">
                 <Mail className="h-4 w-4 mr-2" />
-                contact@zelalemtesfaye.com
+                contact: tzelalemtesfaye@gmail.com
               </p>
               <p className="text-muted-foreground">Addis Ababa, Ethiopia</p>
             </div>

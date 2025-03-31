@@ -1,17 +1,18 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, Code, Layout, Smartphone, CheckCircle, MousePointer } from "lucide-react"
+import { ArrowRight, Code, Layout, Smartphone, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import InteractiveBackground from "@/components/interactive-background"
 import FloatingNavigation from "@/components/floating-navigation"
 import ProjectShowcase from "@/components/project-showcase"
 import InteractiveTimeline from "@/components/interactive-timeline"
-import TechSphere from "@/components/tech-sphere"
+import EnhancedTechSphere from "@/components/enhanced-tech-sphere"
 import CustomCursor from "@/components/custom-cursor"
+import HeroSection from "@/components/hero-section"
 import { useMobile } from "@/hooks/use-mobile"
 
 export default function Home() {
@@ -62,16 +63,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const enterButton = () => {
-    setCursorText("Click")
-    setCursorVariant("button")
-  }
-
-  const leaveButton = () => {
-    setCursorText("")
-    setCursorVariant("default")
-  }
-
   return (
     <>
       {!isMobile && <CustomCursor cursorText={cursorText} cursorVariant={cursorVariant} />}
@@ -80,111 +71,9 @@ export default function Home() {
 
       <main className="relative">
         {/* Hero Section */}
-        <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden py-20" id="hero">
-          <div className="container mx-auto relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                className="space-y-8"
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <motion.div style={{ opacity, scale }} className="inline-block">
-                  <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                    Full-Stack Developer
-                  </span>
-                </motion.div>
-                <motion.h1
-                  className="text-5xl md:text-7xl font-bold tracking-tight"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  Hi, I'm{" "}
-                  <span className="text-primary relative">
-                    Zelalem
-                    <motion.span
-                      className="absolute -bottom-2 left-0 w-full h-1 bg-primary"
-                      initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 0.8, delay: 1.2 }}
-                    />
-                  </span>
-                </motion.h1>
-                <motion.div
-                  className="relative h-20"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                >
-                  <AnimatedTextWord text="Transforming Ideas into Digital Masterpieces" />
-                </motion.div>
-                <motion.p
-                  className="text-lg text-muted-foreground max-w-xl"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                >
-                  Building fast, SEO-optimized, and visually stunning web applications that not only look great but also
-                  perform flawlessly.
-                </motion.p>
-                <motion.div
-                  className="flex flex-wrap gap-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1 }}
-                >
-                  <Button
-                    asChild
-                    size="lg"
-                    className="group relative overflow-hidden"
-                    onMouseEnter={enterButton}
-                    onMouseLeave={leaveButton}
-                  >
-                    <Link href="#projects">
-                      <span className="relative z-10">Let's Create Something Amazing Together</span>
-                      <motion.span
-                        className="absolute inset-0 bg-white dark:bg-black opacity-20"
-                        initial={{ x: "-100%" }}
-                        whileHover={{ x: "100%" }}
-                        transition={{ duration: 0.5 }}
-                      />
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                  <motion.div
-                    className="hidden md:flex items-center gap-2 text-muted-foreground"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                  >
-                    <MousePointer className="h-4 w-4 animate-bounce" />
-                    <span className="text-sm">Scroll to explore</span>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                className="relative h-[400px] md:h-[500px]"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <HeroCanvas />
-              </motion.div>
-            </div>
-          </div>
-
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            {["hero", "services", "process", "projects", "tech", "contact"].map((section) => (
-              <motion.div
-                key={section}
-                className={`w-2 h-2 rounded-full ${activeSection === section ? "bg-primary" : "bg-muted"}`}
-                whileHover={{ scale: 1.5 }}
-              />
-            ))}
-          </div>
-        </section>
+        <div ref={heroRef} id="hero" className="px-3">
+          <HeroSection setCursorText={setCursorText} setCursorVariant={setCursorVariant} />
+        </div>
 
         {/* Services Section */}
         <section ref={servicesRef} className="py-20 relative" id="services">
@@ -298,7 +187,7 @@ export default function Home() {
             </motion.div>
 
             <div className="flex justify-center">
-              <TechSphere />
+              <EnhancedTechSphere />
             </div>
           </div>
         </section>
@@ -323,8 +212,14 @@ export default function Home() {
                 asChild
                 size="lg"
                 className="group relative overflow-hidden"
-                onMouseEnter={enterButton}
-                onMouseLeave={leaveButton}
+                onMouseEnter={() => {
+                  setCursorText("Click")
+                  setCursorVariant("button")
+                }}
+                onMouseLeave={() => {
+                  setCursorText("")
+                  setCursorVariant("default")
+                }}
               >
                 <Link href="/contact">
                   <span className="relative z-10">Get in Touch</span>
@@ -367,163 +262,6 @@ function ServiceCard({ icon, title, description, delay }) {
       </div>
     </motion.div>
   )
-}
-
-function AnimatedTextWord({ text }) {
-  const words = text.split(" ")
-
-  return (
-    <div className="flex flex-wrap">
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          className="mr-2 text-2xl md:text-3xl font-bold text-primary"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 + i * 0.1 }}
-        >
-          {word}
-        </motion.span>
-      ))}
-    </div>
-  )
-}
-
-function HeroCanvas() {
-  const canvasRef = useRef(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext("2d")
-    let animationFrameId
-    let particles = []
-    let mouseX = 0
-    let mouseY = 0
-
-    // Set canvas dimensions
-    const setCanvasDimensions = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-
-    setCanvasDimensions()
-    window.addEventListener("resize", setCanvasDimensions)
-
-    // Track mouse position
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect()
-      mouseX = e.clientX - rect.left
-      mouseY = e.clientY - rect.top
-    }
-
-    canvas.addEventListener("mousemove", handleMouseMove)
-
-    // Particle class
-    class Particle {
-      constructor(x, y) {
-        this.x = x || Math.random() * canvas.width
-        this.y = y || Math.random() * canvas.height
-        this.size = Math.random() * 5 + 1
-        this.baseX = this.x
-        this.baseY = this.y
-        this.density = Math.random() * 30 + 1
-        this.color = `hsl(${Math.random() * 60 + 200}, 70%, 50%)`
-      }
-
-      draw() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.closePath()
-        ctx.fill()
-      }
-
-      update() {
-        // Calculate distance between particle and mouse
-        const dx = mouseX - this.x
-        const dy = mouseY - this.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const forceDirectionX = dx / distance
-        const forceDirectionY = dy / distance
-
-        // Max distance, past that the force will be 0
-        const maxDistance = 100
-        let force = (maxDistance - distance) / maxDistance
-
-        if (force < 0) force = 0
-
-        const directionX = forceDirectionX * force * this.density
-        const directionY = forceDirectionY * force * this.density
-
-        if (distance < maxDistance) {
-          this.x += directionX
-          this.y += directionY
-        } else {
-          if (this.x !== this.baseX) {
-            const dx = this.x - this.baseX
-            this.x -= dx / 10
-          }
-          if (this.y !== this.baseY) {
-            const dy = this.y - this.baseY
-            this.y -= dy / 10
-          }
-        }
-      }
-    }
-
-    // Initialize particles
-    const init = () => {
-      particles = []
-      const numberOfParticles = (canvas.width * canvas.height) / 9000
-
-      for (let i = 0; i < numberOfParticles; i++) {
-        particles.push(new Particle())
-      }
-    }
-
-    // Animation loop
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      // Draw connections
-      ctx.strokeStyle = "rgba(100, 150, 255, 0.1)"
-      ctx.lineWidth = 0.5
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 100) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
-          }
-        }
-      }
-
-      // Update and draw particles
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update()
-        particles[i].draw()
-      }
-
-      animationFrameId = requestAnimationFrame(animate)
-    }
-
-    init()
-    animate()
-
-    return () => {
-      window.removeEventListener("resize", setCanvasDimensions)
-      canvas.removeEventListener("mousemove", handleMouseMove)
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [])
-
-  return <canvas ref={canvasRef} className="w-full h-full rounded-2xl bg-gradient-to-br from-primary/5 to-background" />
 }
 
 const featuredProjects = [

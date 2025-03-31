@@ -22,6 +22,7 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [formError, setFormError] = useState(null)
   const [cursorText, setCursorText] = useState("")
   const [cursorVariant, setCursorVariant] = useState("default")
   const [copiedField, setCopiedField] = useState(null)
@@ -52,24 +53,44 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setFormError(null)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formState,
+          to: "tzelalemtesfaye@gmail.com",
+        }),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormState({
-      name: "",
-      email: "",
-      subject: "",
-      projectType: "",
-      message: "",
-    })
+      const data = await response.json()
 
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send email")
+      }
+
+      setIsSubmitted(true)
+      setFormState({
+        name: "",
+        email: "",
+        subject: "",
+        projectType: "",
+        message: "",
+      })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 5000)
+    } catch (error) {
+      setFormError(error.message || "Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const enterButton = () => {
@@ -247,13 +268,13 @@ export default function ContactPage() {
                   <ContactCard
                     icon={<Mail className="h-5 w-5 text-primary" />}
                     title="Email"
-                    content="contact@zelalemtesfaye.com"
-                    action={() => copyToClipboard("contact@zelalemtesfaye.com", "email")}
+                    content="tzelalemtesfaye@gmail.com"
+                    action={() => copyToClipboard("tzelalemtesfaye@gmail.com", "email")}
                     actionIcon={
                       copiedField === "email" ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />
                     }
                     actionText={copiedField === "email" ? "Copied!" : "Copy"}
-                    link="mailto:contact@zelalemtesfaye.com"
+                    link="mailto:tzelalemtesfaye@gmail.com"
                     enterButton={enterButton}
                     leaveButton={leaveButton}
                   />
@@ -383,6 +404,12 @@ export default function ContactPage() {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                         >
+                          {formError && (
+                            <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md text-destructive text-sm">
+                              {formError}
+                            </div>
+                          )}
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                               <label htmlFor="name" className="text-sm font-medium">

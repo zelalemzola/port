@@ -1,10 +1,10 @@
-import { Inter } from "next/font/google"
+import { Inter, Urbanist } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Urbanist({ subsets: ["latin"] })
 
 export const metadata = {
   title: "Zelalem Tesfaye | Full-Stack Developer",
