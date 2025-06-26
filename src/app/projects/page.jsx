@@ -14,10 +14,6 @@ export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(null)
   const [cursorText, setCursorText] = useState("")
   const [cursorVariant, setCursorVariant] = useState("default")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [activeCategory, setActiveCategory] = useState("all")
-  const [filteredProjects, setFilteredProjects] = useState(projects)
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
   const isMobile = useMobile()
 
   const { scrollYProgress } = useScroll()
@@ -25,27 +21,7 @@ export default function ProjectsPage() {
 
   const containerRef = useRef(null)
 
-  useEffect(() => {
-    let result = projects
-
-    // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      result = result.filter(
-        (project) =>
-          project.title.toLowerCase().includes(query) ||
-          project.description.toLowerCase().includes(query) ||
-          project.technologies.some((tech) => tech.toLowerCase().includes(query)),
-      )
-    }
-
-    // Filter by category
-    if (activeCategory !== "all") {
-      result = result.filter((project) => project.categories.includes(activeCategory))
-    }
-
-    setFilteredProjects(result)
-  }, [searchQuery, activeCategory])
+  const allProjects = projects // No filtering, just show all
 
   const enterButton = () => {
     setCursorText("View")
@@ -56,13 +32,6 @@ export default function ProjectsPage() {
     setCursorText("")
     setCursorVariant("default")
   }
-
-  const categories = [
-    { id: "all", label: "All Projects" },
-    { id: "web", label: "Web Development" },
-    { id: "mobile", label: "Mobile Apps" },
-    { id: "design", label: "UI/UX Design" },
-  ]
 
   return (
     <>
@@ -101,91 +70,6 @@ export default function ProjectsPage() {
             </motion.p>
           </motion.div>
 
-          <motion.div
-            className="mb-12 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="flex flex-col md:flex-row gap-4 items-center">
-              <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                <Input
-                  placeholder="Search projects..."
-                  className="pl-10"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-
-              <div className="w-full md:w-auto">
-                <div className="relative">
-                  <Button
-                    variant="outline"
-                    className="w-full md:w-auto flex items-center justify-between"
-                    onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  >
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter by Category
-                    <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${isFilterOpen ? "rotate-180" : ""}`} />
-                  </Button>
-
-                  <AnimatePresence>
-                    {isFilterOpen && (
-                      <motion.div
-                        className="absolute top-full right-0 mt-2 w-full md:w-64 bg-background rounded-md border border-border shadow-md z-10"
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="p-2">
-                          {categories.map((category) => (
-                            <button
-                              key={category.id}
-                              className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                                activeCategory === category.id
-                                  ? "bg-primary/10 text-primary font-medium"
-                                  : "hover:bg-muted"
-                              }`}
-                              onClick={() => {
-                                setActiveCategory(category.id)
-                                setIsFilterOpen(false)
-                              }}
-                            >
-                              {category.label}
-                            </button>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mt-4">
-              <span className="text-sm text-muted-foreground">Active filters:</span>
-              {activeCategory !== "all" && (
-                <Badge variant="outline" className="flex items-center gap-1">
-                  <Tag className="h-3 w-3" />
-                  {categories.find((c) => c.id === activeCategory)?.label}
-                  <button className="ml-1 hover:text-primary" onClick={() => setActiveCategory("all")}>
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-              )}
-              {searchQuery && (
-                <Badge variant="outline" className="flex items-center gap-1">
-                  <Search className="h-3 w-3" />"{searchQuery}"
-                  <button className="ml-1 hover:text-primary" onClick={() => setSearchQuery("")}>
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-              )}
-            </div>
-          </motion.div>
-
           <Tabs defaultValue="grid" className="max-w-6xl mx-auto">
             <div className="flex justify-center mb-8">
               <TabsList>
@@ -195,14 +79,14 @@ export default function ProjectsPage() {
             </div>
 
             <TabsContent value="grid">
-              {filteredProjects.length > 0 ? (
+              {allProjects.length > 0 ? (
                 <motion.div
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
                 >
-                  {filteredProjects.map((project, index) => (
+                  {allProjects.map((project, index) => (
                     <ProjectCard
                       key={project.id}
                       project={project}
@@ -228,9 +112,9 @@ export default function ProjectsPage() {
             </TabsContent>
 
             <TabsContent value="list">
-              {filteredProjects.length > 0 ? (
+              {allProjects.length > 0 ? (
                 <motion.div className="space-y-6" variants={containerVariants} initial="hidden" animate="visible">
-                  {filteredProjects.map((project, index) => (
+                  {allProjects.map((project, index) => (
                     <ProjectListItem
                       key={project.id}
                       project={project}
@@ -597,111 +481,86 @@ function ProjectModal({ project, onClose }) {
 const projects = [
   {
     id: 1,
-    title: "E-commerce Website",
-    client: "Fashion Boutique",
-    shortDescription: "A full-featured online store with payment integration",
+    title: "Addis Ababa University Digital Transformation",
+    client: "Addis Ababa University",
+    shortDescription: "Landing page, CMS, and chatbot for a major university.",
     description:
-      "An e-commerce platform that combines seamless checkout experiences with blazing-fast load times. Built with Next.js for server-side rendering, this website offers real-time product updates, secure payments via Stripe, and a fully responsive design.",
+      "Led and managed a cross-functional team as Team Lead & Scrum Master, delivering digital transformation projects for Addis Ababa University with agile practices. Built a scalable landing page with CMS, and developed a full-featured staff and course management system with admin controls, boosting institutional efficiency and presence. Designed and implemented a performant frontend architecture using Next.js, TypeScript, Tailwind, Zustand, and React Query, ensuring smooth state management and user experience.",
     challenge:
-      "Ensuring a smooth, responsive design across mobile and desktop devices while managing real-time inventory updates was a key challenge. The client also needed a solution that could handle seasonal traffic spikes without performance degradation.",
+      "Delivering a robust, scalable platform for a large institution with complex content and user management needs, while integrating a custom chatbot for student and staff support.",
     outcome:
-      "The site saw a 40% increase in mobile conversions and a significant reduction in page load times, leading to improved customer satisfaction and higher sales volumes during peak shopping seasons.",
-    technologies: ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
+      "The new platform significantly improved the university's digital presence, streamlined administrative processes, and enhanced user engagement through the integrated chatbot.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "React Query"],
+    thumbnail: "/aau.png",
+    liveUrl: "https://aau.edu.et/",
     categories: ["web", "design"],
-    timeline: "3 months",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+    timeline: "6 months",
   },
   {
     id: 2,
-    title: "Personal Blog",
-    client: "Zelalem's Blog",
-    shortDescription: "A minimalist blog with markdown support",
+    title: "Ethio CC Tech Centralized Car Repair Facilitation System",
+    client: "Ethio CC Tech",
+    shortDescription: "Platform connecting car owners with repair shops and suppliers.",
     description:
-      "A personal blog built with Next.js and Markdown, providing a lightning-fast, minimalistic reading experience. This blog focuses on web development topics, and the design is fully responsive, making it accessible on any device.",
+      "A digital platform that connects car owners with nearby, relevant spare part suppliers and repair shops. Led requirements gathering and managed ongoing stakeholder communication. Helped design the full UI/UX workflow to ensure intuitive user experience. Developed the frontend and integrated APIs using Next.js, Tailwind CSS, TypeScript, and TanStack Query.",
     challenge:
-      "Optimizing content-heavy pages and ensuring they load instantly without sacrificing user experience. Implementing a robust content management system that was easy to update while maintaining excellent SEO performance.",
+      "Building a seamless, user-friendly interface that efficiently matches car owners with the right service providers, while managing real-time data and multiple user roles.",
     outcome:
-      "After launching, organic traffic grew by 30%, and the blog became one of the most visited resources on my site. The improved reading experience led to longer session times and higher engagement rates.",
-    technologies: ["Next.js", "Markdown", "Tailwind CSS"],
+      "The platform streamlined the car repair process, improved transparency, and increased customer satisfaction for both car owners and service providers.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
+    thumbnail: "/ethiocc.png",
+    liveUrl: "https://ethiocctech.com/",
     categories: ["web", "design"],
-    timeline: "1 month",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+    timeline: "4 months",
   },
   {
     id: 3,
-    title: "SaaS Dashboard",
-    client: "Tech Startup",
-    shortDescription: "Admin dashboard for SaaS analytics",
+    title: "Inventory Management System for Spare Parts Retailers",
+    client: "Multiple Clients",
+    shortDescription: "Dynamic landing pages and real-time inventory management.",
     description:
-      "A comprehensive dashboard for a SaaS product that provides real-time analytics and reports. Using GraphQL for fetching data, the platform allows users to track key performance metrics.",
+      "Delivered multiple solutions for car spare parts sellers and other clients. Built dynamic landing pages integrated with back-office CMS, enabling non-technical teams to manage content easily and maintain brand consistency. Developed a comprehensive inventory management system featuring real-time stock tracking, product categorization, and role-based access control, deployed across multiple clients. Developed the frontend and designed and integrated axios APIs using Next.js, Tailwind CSS, TypeScript, and MongoDB.",
     challenge:
-      "The biggest challenge was ensuring that the dashboard could handle large datasets without slowing down. Creating intuitive data visualizations that communicated complex information clearly was also a significant focus.",
+      "Ensuring real-time accuracy of inventory data and providing a flexible, easy-to-use CMS for non-technical users.",
     outcome:
-      "The dashboard is now used by thousands of users daily, providing valuable insights with zero downtime. The client reported a 25% reduction in customer support inquiries as users could now access the information they needed directly.",
-    technologies: ["React.js", "Node.js", "GraphQL", "TypeScript"],
-    categories: ["web"],
-    timeline: "4 months",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+      "Clients reported improved operational efficiency, reduced stockouts, and better customer experience due to accurate, up-to-date inventory information.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Axios"],
+    thumbnail: "/inventory.png",
+    categories: ["web", "design"],
+    timeline: "3 months",
   },
   {
     id: 4,
-    title: "Mobile Fitness App",
-    client: "FitLife",
-    shortDescription: "Cross-platform fitness tracking application",
+    title: "TeleMedicine Startup Platform",
+    client: "TeleMedicine Startup",
+    shortDescription: "Landing page and integrated chatbot for telemedicine.",
     description:
-      "A mobile application for fitness enthusiasts to track workouts, nutrition, and progress. Built with React Native for cross-platform compatibility, the app features offline functionality and syncs data when connectivity is restored.",
+      "Built the landing page and chatbot integrated with a backoffice chatting system, giving professionals access to respond to customer questions. Admins can assign professionals suited for each case, and the system tracks resolution times for customer satisfaction metrics. Chatting is also integrated with a Telegram bot for seamless communication.",
     challenge:
-      "Creating a seamless experience across both iOS and Android platforms while implementing complex features like workout tracking, progress graphs, and social sharing capabilities.",
+      "Integrating real-time chat with both web and Telegram, and building a robust admin workflow for case assignment and tracking.",
     outcome:
-      "The app achieved over 10,000 downloads in the first month with a 4.8-star average rating. User retention rates exceeded industry averages by 35%.",
-    technologies: ["React Native", "Firebase", "Redux", "Node.js"],
-    categories: ["mobile"],
-    timeline: "5 months",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+      "The platform enabled faster, more efficient customer support and improved satisfaction through streamlined communication and analytics.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Telegram Bot API"],
+    thumbnail: "/tenaye.png",
+    liveUrl: "https://ethiocctech.com/",
+    categories: ["web", "design"],
+    timeline: "4 months",
   },
   {
     id: 5,
-    title: "Restaurant Ordering System",
-    client: "Gourmet Dining",
-    shortDescription: "Digital menu and ordering platform",
+    title: "Partnership Management System",
+    client: "Addis Ababa University",
+    shortDescription: "Internal tool for managing institutional partnerships.",
     description:
-      "A comprehensive digital ordering system for a high-end restaurant chain, featuring QR code menus, real-time order tracking, and integration with the kitchen management system.",
+      "An internal tool for registering, managing, and analyzing institutional partnerships. Delivered for Addis Ababa University to streamline their partnership operations. Conducted stakeholder interviews and translated needs into wireframes and design prototypes. Built the frontend and handled API integration using Next.js, Tailwind CSS, TypeScript, and TanStack Query.",
     challenge:
-      "Implementing a system that was both elegant enough for a luxury dining experience while being intuitive enough for all customers to use without assistance.",
+      "Translating complex partnership workflows into an intuitive, easy-to-use digital tool for university staff.",
     outcome:
-      "The system reduced order errors by 95% and decreased average order time by 7 minutes, significantly improving the dining experience and operational efficiency.",
-    technologies: ["Vue.js", "Express", "PostgreSQL", "Socket.io"],
+      "The system improved data accuracy, reduced manual work, and provided actionable insights for partnership management.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
+    thumbnail: "/partnership.png",
     categories: ["web", "design"],
-    timeline: "3 months",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
-  },
-  {
-    id: 6,
-    title: "Educational Platform",
-    client: "LearnTech Academy",
-    shortDescription: "Interactive learning management system",
-    description:
-      "A feature-rich educational platform with course management, interactive lessons, progress tracking, and certification capabilities for an online learning institution.",
-    challenge:
-      "Creating an engaging learning experience that maintained student interest while providing robust tools for educators to manage content and track student progress.",
-    outcome:
-      "The platform saw a 45% increase in course completion rates compared to the client's previous system, with student satisfaction scores improving by 60%.",
-    technologies: ["Next.js", "MongoDB", "AWS", "WebRTC"],
-    categories: ["web"],
-    timeline: "6 months",
-    thumbnail: "/placeholder.svg?height=600&width=800",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+    timeline: "2 months",
   },
 ]
 

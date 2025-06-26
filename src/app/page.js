@@ -69,7 +69,7 @@ export default function Home() {
       <InteractiveBackground />
       <FloatingNavigation activeSection={activeSection} />
 
-      <main className="relative">
+      <main className="relative px-3 md:px-8 lg:px-16">
         {/* Hero Section */}
         <div ref={heroRef} id="hero" className="px-3">
           <HeroSection setCursorText={setCursorText} setCursorVariant={setCursorVariant} />
@@ -267,49 +267,86 @@ function ServiceCard({ icon, title, description, delay }) {
 const featuredProjects = [
   {
     id: 1,
-    title: "E-commerce Website",
-    client: "Fashion Boutique",
-    shortDescription: "A full-featured online store with payment integration",
+    title: "Addis Ababa University Digital Transformation",
+    client: "Addis Ababa University",
+    shortDescription: "Landing page, CMS, and chatbot for a major university.",
     description:
-      "An e-commerce platform that combines seamless checkout experiences with blazing-fast load times. Built with Next.js for server-side rendering, this website offers real-time product updates, secure payments via Stripe, and a fully responsive design.",
+      "Led and managed a cross-functional team as Team Lead & Scrum Master, delivering digital transformation projects for Addis Ababa University with agile practices. Built a scalable landing page with CMS, and developed a full-featured staff and course management system with admin controls, boosting institutional efficiency and presence. Designed and implemented a performant frontend architecture using Next.js, TypeScript, Tailwind, Zustand, and React Query, ensuring smooth state management and user experience.",
     challenge:
-      "Ensuring a smooth, responsive design across mobile and desktop devices while managing real-time inventory updates was a key challenge.",
+      "Delivering a robust, scalable platform for a large institution with complex content and user management needs, while integrating a custom chatbot for student and staff support.",
     outcome:
-      "The site saw a 40% increase in mobile conversions and a significant reduction in page load times, leading to improved customer satisfaction.",
-    technologies: ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
-    thumbnail: "/placeholder.svg?height=400&width=600",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+      "The new platform significantly improved the university's digital presence, streamlined administrative processes, and enhanced user engagement through the integrated chatbot.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "React Query"],
+    thumbnail: "/aau.png",
+    liveUrl: "https://aau.edu.et/",
+    categories: ["web", "design"],
+    timeline: "6 months",
   },
   {
     id: 2,
-    title: "Personal Blog",
-    client: "Zelalem's Blog",
-    shortDescription: "A minimalist blog with markdown support",
+    title: "Ethio CC Tech Centralized Car Repair Facilitation System",
+    client: "Ethio CC Tech",
+    shortDescription: "Platform connecting car owners with repair shops and suppliers.",
     description:
-      "A personal blog built with Next.js and Markdown, providing a lightning-fast, minimalistic reading experience. This blog focuses on web development topics, and the design is fully responsive, making it accessible on any device.",
-    challenge: "Optimizing content-heavy pages and ensuring they load instantly without sacrificing user experience.",
+      "A digital platform that connects car owners with nearby, relevant spare part suppliers and repair shops. Led requirements gathering and managed ongoing stakeholder communication. Helped design the full UI/UX workflow to ensure intuitive user experience. Developed the frontend and integrated APIs using Next.js, Tailwind CSS, TypeScript, and TanStack Query.",
+    challenge:
+      "Building a seamless, user-friendly interface that efficiently matches car owners with the right service providers, while managing real-time data and multiple user roles.",
     outcome:
-      "After launching, organic traffic grew by 30%, and the blog became one of the most visited resources on my site.",
-    technologies: ["Next.js", "Markdown", "Tailwind CSS"],
-    thumbnail: "/placeholder.svg?height=400&width=600",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+      "The platform streamlined the car repair process, improved transparency, and increased customer satisfaction for both car owners and service providers.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
+    thumbnail: "/ethiocc.png",
+    liveUrl: "https://ethiocctech.com/",
+    categories: ["web", "design"],
+    timeline: "4 months",
   },
   {
     id: 3,
-    title: "SaaS Dashboard",
-    client: "Tech Startup",
-    shortDescription: "Admin dashboard for SaaS analytics",
+    title: "Inventory Management System for Spare Parts Retailers",
+    client: "Multiple Clients",
+    shortDescription: "Dynamic landing pages and real-time inventory management.",
     description:
-      "A comprehensive dashboard for a SaaS product that provides real-time analytics and reports. Using GraphQL for fetching data, the platform allows users to track key performance metrics.",
+      "Delivered multiple solutions for car spare parts sellers and other clients. Built dynamic landing pages integrated with back-office CMS, enabling non-technical teams to manage content easily and maintain brand consistency. Developed a comprehensive inventory management system featuring real-time stock tracking, product categorization, and role-based access control, deployed across multiple clients. Developed the frontend and designed and integrated axios APIs using Next.js, Tailwind CSS, TypeScript, and MongoDB.",
     challenge:
-      "The biggest challenge was ensuring that the dashboard could handle large datasets without slowing down.",
-    outcome: "The dashboard is now used by thousands of users daily, providing valuable insights with zero downtime.",
-    technologies: ["React.js", "Node.js", "GraphQL", "TypeScript"],
-    thumbnail: "/placeholder.svg?height=400&width=600",
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/example",
+      "Ensuring real-time accuracy of inventory data and providing a flexible, easy-to-use CMS for non-technical users.",
+    outcome:
+      "Clients reported improved operational efficiency, reduced stockouts, and better customer experience due to accurate, up-to-date inventory information.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Axios"],
+    thumbnail: "/inventory.png",
+    categories: ["web", "design"],
+    timeline: "3 months",
+  },
+  {
+    id: 4,
+    title: "TeleMedicine Startup Platform",
+    client: "TeleMedicine Startup",
+    shortDescription: "Landing page and integrated chatbot for telemedicine.",
+    description:
+      "Built the landing page and chatbot integrated with a backoffice chatting system, giving professionals access to respond to customer questions. Admins can assign professionals suited for each case, and the system tracks resolution times for customer satisfaction metrics. Chatting is also integrated with a Telegram bot for seamless communication.",
+    challenge:
+      "Integrating real-time chat with both web and Telegram, and building a robust admin workflow for case assignment and tracking.",
+    outcome:
+      "The platform enabled faster, more efficient customer support and improved satisfaction through streamlined communication and analytics.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Telegram Bot API"],
+    thumbnail: "/tenaye.png",
+    liveUrl: "https://ethiocctech.com/",
+    categories: ["web", "design"],
+    timeline: "4 months",
+  },
+  {
+    id: 5,
+    title: "Partnership Management System",
+    client: "Addis Ababa University",
+    shortDescription: "Internal tool for managing institutional partnerships.",
+    description:
+      "An internal tool for registering, managing, and analyzing institutional partnerships. Delivered for Addis Ababa University to streamline their partnership operations. Conducted stakeholder interviews and translated needs into wireframes and design prototypes. Built the frontend and handled API integration using Next.js, Tailwind CSS, TypeScript, and TanStack Query.",
+    challenge:
+      "Translating complex partnership workflows into an intuitive, easy-to-use digital tool for university staff.",
+    outcome:
+      "The system improved data accuracy, reduced manual work, and provided actionable insights for partnership management.",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
+    thumbnail: "/partnership.png",
+    categories: ["web", "design"],
+    timeline: "2 months",
   },
 ]
 

@@ -4,52 +4,8 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Home, Briefcase, Code, Layers, Cpu, Mail } from "lucide-react"
 
-export default function FloatingNavigation({ activeSection }) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const navItems = [
-    { id: "hero", icon: <Home className="h-5 w-5" />, label: "Home" },
-    { id: "services", icon: <Briefcase className="h-5 w-5" />, label: "Services" },
-    { id: "process", icon: <Layers className="h-5 w-5" />, label: "Process" },
-    { id: "projects", icon: <Code className="h-5 w-5" />, label: "Projects" },
-    { id: "tech", icon: <Cpu className="h-5 w-5" />, label: "Tech" },
-    { id: "contact", icon: <Mail className="h-5 w-5" />, label: "Contact" },
-  ]
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 hidden md:block"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 50 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="bg-background/80 backdrop-blur-md rounded-full p-2 shadow-lg border border-border">
-            <div className="flex flex-col items-center space-y-4 py-2">
-              {navItems.map((item) => (
-                <NavItem key={item.id} item={item} isActive={activeSection === item.id} href={`#${item.id}`} />
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
+export default function FloatingNavigation() {
+  return null;
 }
 
 function NavItem({ item, isActive, href }) {

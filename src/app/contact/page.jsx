@@ -282,13 +282,13 @@ export default function ContactPage() {
                   <ContactCard
                     icon={<Phone className="h-5 w-5 text-primary" />}
                     title="Phone"
-                    content="+251 91 234 5678"
-                    action={() => copyToClipboard("+251 91 234 5678", "phone")}
+                    content="+251988745721"
+                    action={() => copyToClipboard("+251988745721", "phone")}
                     actionIcon={
                       copiedField === "phone" ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />
                     }
                     actionText={copiedField === "phone" ? "Copied!" : "Copy"}
-                    link="tel:+251912345678"
+                    link="tel:+251988745721"
                     enterButton={enterButton}
                     leaveButton={leaveButton}
                   />
@@ -310,7 +310,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold mb-4">Connect With Me</h3>
                 <div className="flex space-x-4">
                   <motion.a
-                    href="https://github.com"
+                    href="http://github.com/zelalemzola"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -321,7 +321,7 @@ export default function ContactPage() {
                     <Github className="h-5 w-5" />
                   </motion.a>
                   <motion.a
-                    href="https://linkedin.com"
+                    href="http://linkedin.com/in/zelalem-tesfaye-124686258"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -362,170 +362,55 @@ export default function ContactPage() {
               ref={formRef}
             >
               <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="p-6 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
-                    <Badge className="mb-2">GET IN TOUCH</Badge>
-                    <h2 className="text-2xl font-bold mb-2">Send Me a Message</h2>
-                    <p className="text-muted-foreground mb-6">
-                      Fill out the form below and I'll get back to you as soon as possible.
+                <CardContent className="p-0 flex flex-col items-center justify-center min-h-[340px]">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.7, type: 'spring' }}
+                    className="flex flex-col items-center justify-center py-10"
+                  >
+                    <motion.div
+                      initial={{ rotate: -10 }}
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                      className="text-7xl mb-4"
+                    >
+                      👋
+                    </motion.div>
+                    <h2 className="text-2xl font-bold mb-2 text-center">Let's Connect!</h2>
+                    <p className="text-muted-foreground mb-4 text-center max-w-xs">
+                      I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Reach out via email, LinkedIn, or phone—I'll respond promptly!
                     </p>
-                  </div>
-
-                  <div className="p-6">
-                    <AnimatePresence mode="wait">
-                      {isSubmitted ? (
-                        <motion.div
-                          className="flex flex-col items-center justify-center text-center py-12"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
-                          <div className="mb-4 text-primary">
-                            <CheckCircle className="h-16 w-16" />
-                          </div>
-                          <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                          <p className="text-muted-foreground">
-                            Thank you for reaching out. I'll get back to you as soon as possible.
-                          </p>
-                          <Button
-                            className="mt-6"
-                            onClick={() => setIsSubmitted(false)}
-                            onMouseEnter={enterButton}
-                            onMouseLeave={leaveButton}
-                          >
-                            Send Another Message
-                          </Button>
-                        </motion.div>
-                      ) : (
-                        <motion.form
-                          onSubmit={handleSubmit}
-                          className="space-y-6"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
-                          {formError && (
-                            <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md text-destructive text-sm">
-                              {formError}
-                            </div>
-                          )}
-
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                              <label htmlFor="name" className="text-sm font-medium">
-                                Your Name
-                              </label>
-                              <Input id="name" name="name" value={formState.name} onChange={handleChange} required />
-                            </div>
-                            <div className="space-y-2">
-                              <label htmlFor="email" className="text-sm font-medium">
-                                Your Email
-                              </label>
-                              <Input
-                                id="email"
-                                name="email"
-                                type="email"
-                                value={formState.email}
-                                onChange={handleChange}
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <label htmlFor="subject" className="text-sm font-medium">
-                              Subject
-                            </label>
-                            <Input
-                              id="subject"
-                              name="subject"
-                              value={formState.subject}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <label htmlFor="projectType" className="text-sm font-medium">
-                              Project Type
-                            </label>
-                            <Select value={formState.projectType} onValueChange={handleSelectChange}>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select project type" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="website">Website Development</SelectItem>
-                                <SelectItem value="ecommerce">E-commerce</SelectItem>
-                                <SelectItem value="webapp">Web Application</SelectItem>
-                                <SelectItem value="maintenance">Maintenance & Support</SelectItem>
-                                <SelectItem value="other">Other</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          <div className="space-y-2">
-                            <label htmlFor="message" className="text-sm font-medium">
-                              Message
-                            </label>
-                            <Textarea
-                              id="message"
-                              name="message"
-                              rows={6}
-                              value={formState.message}
-                              onChange={handleChange}
-                              required
-                              placeholder="Tell me about your project..."
-                            />
-                          </div>
-                          <Button
-                            type="submit"
-                            className="w-full group relative overflow-hidden"
-                            disabled={isSubmitting}
-                            onMouseEnter={enterButton}
-                            onMouseLeave={leaveButton}
-                          >
-                            <span className="relative z-10 flex items-center justify-center">
-                              {isSubmitting ? (
-                                <>
-                                  <svg
-                                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <circle
-                                      className="opacity-25"
-                                      cx="12"
-                                      cy="12"
-                                      r="10"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                    ></circle>
-                                    <path
-                                      className="opacity-75"
-                                      fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                  </svg>
-                                  Sending...
-                                </>
-                              ) : (
-                                <>
-                                  <Send className="mr-2 h-4 w-4" /> Send Message
-                                </>
-                              )}
-                            </span>
-                            <motion.span
-                              className="absolute inset-0 bg-white dark:bg-black opacity-20"
-                              initial={{ x: "-100%" }}
-                              whileHover={{ x: "100%" }}
-                              transition={{ duration: 0.5 }}
-                            />
-                          </Button>
-                        </motion.form>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                    <div className="flex space-x-4 mt-4">
+                      <motion.a
+                        href="mailto:tzelalemtesfaye@gmail.com"
+                        className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors text-primary text-2xl"
+                        whileHover={{ scale: 1.2 }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Mail className="h-6 w-6" />
+                      </motion.a>
+                      <motion.a
+                        href="http://linkedin.com/in/zelalem-tesfaye-124686258"
+                        className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors text-primary text-2xl"
+                        whileHover={{ scale: 1.2 }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin className="h-6 w-6" />
+                      </motion.a>
+                      <motion.a
+                        href="tel:+251988745721"
+                        className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors text-primary text-2xl"
+                        whileHover={{ scale: 1.2 }}
+                      >
+                        <Phone className="h-6 w-6" />
+                      </motion.a>
+                    </div>
+                  </motion.div>
                 </CardContent>
               </Card>
-
               <div className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl opacity-50" />
             </motion.div>
           </div>

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Github, Linkedin, Mail, Phone } from "lucide-react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -17,7 +17,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4 mt-6">
               <a
-                href="https://github.com"
+                href="https://github.com/zelalemzola"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-background hover:bg-background/80 transition-colors"
@@ -26,7 +26,7 @@ export default function Footer() {
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="http://linkedin.com/in/zelalem-tesfaye-124686258"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-background hover:bg-background/80 transition-colors"
@@ -35,7 +35,7 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:tzelalemtesfaye@gmail.com"
                 className="p-2 rounded-full bg-background hover:bg-background/80 transition-colors"
                 aria-label="Email"
               >
@@ -70,9 +70,20 @@ export default function Footer() {
             <div className="space-y-3">
               <p className="flex items-center text-muted-foreground">
                 <Mail className="h-4 w-4 mr-2" />
-                contact: tzelalemtesfaye@gmail.com
+                Email: <a href="mailto:tzelalemtesfaye@gmail.com" className="ml-1 underline">tzelalemtesfaye@gmail.com</a>
               </p>
-              <p className="text-muted-foreground">Addis Ababa, Ethiopia</p>
+              <p className="flex items-center text-muted-foreground">
+                <Linkedin className="h-4 w-4 mr-2" />
+                LinkedIn: <a href="http://linkedin.com/in/zelalem-tesfaye-124686258" target="_blank" rel="noopener noreferrer" className="ml-1 underline">linkedin.com/in/zelalem-tesfaye-124686258</a>
+              </p>
+              <p className="flex items-center text-muted-foreground">
+                <Github className="h-4 w-4 mr-2" />
+                GitHub: <a href="http://github.com/zelalemzola" target="_blank" rel="noopener noreferrer" className="ml-1 underline">github.com/zelalemzola</a>
+              </p>
+              <p className="flex items-center text-muted-foreground">
+                <Phone className="h-4 w-4 mr-2" />
+                Phone: <a href="tel:+251988745721" className="ml-1 underline">+251988745721</a>
+              </p>
             </div>
           </div>
         </div>

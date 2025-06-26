@@ -113,17 +113,6 @@ function SkillsOverview({ enterButton, leaveButton, setActiveSkill }) {
       ],
     },
     {
-      icon: <Server className="h-10 w-10 text-primary" />,
-      title: "Backend Development",
-      description: "Building robust server-side applications and APIs to power web applications.",
-      skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Express", level: 80 },
-        { name: "GraphQL", level: 75 },
-        { name: "RESTful APIs", level: 90 },
-      ],
-    },
-    {
       icon: <Database className="h-10 w-10 text-primary" />,
       title: "Database Management",
       description: "Designing and optimizing database structures for efficient data storage and retrieval.",
@@ -154,17 +143,6 @@ function SkillsOverview({ enterButton, leaveButton, setActiveSkill }) {
         { name: "User Research", level: 75 },
         { name: "Wireframing", level: 90 },
         { name: "Prototyping", level: 85 },
-      ],
-    },
-    {
-      icon: <Palette className="h-10 w-10 text-primary" />,
-      title: "DevOps & Deployment",
-      description: "Setting up CI/CD pipelines and managing cloud infrastructure.",
-      skills: [
-        { name: "Docker", level: 75 },
-        { name: "AWS", level: 70 },
-        { name: "Vercel", level: 90 },
-        { name: "GitHub Actions", level: 80 },
       ],
     },
   ]
@@ -243,25 +221,8 @@ function TechnicalSkills() {
     { name: "Web Accessibility", level: 85 },
   ]
 
-  const backendSkills = [
-    { name: "Node.js", level: 85 },
-    { name: "Express", level: 80 },
-    { name: "GraphQL", level: 75 },
-    { name: "RESTful APIs", level: 90 },
-    { name: "MongoDB", level: 85 },
-    { name: "PostgreSQL", level: 80 },
-    { name: "Firebase", level: 75 },
-    { name: "Authentication", level: 85 },
-    { name: "API Design", level: 90 },
-    { name: "Serverless Functions", level: 80 },
-  ]
-
   const otherSkills = [
     { name: "Git/GitHub", level: 90 },
-    { name: "Docker", level: 75 },
-    { name: "CI/CD", level: 80 },
-    { name: "AWS", level: 70 },
-    { name: "Vercel", level: 90 },
     { name: "Performance Optimization", level: 85 },
     { name: "SEO", level: 80 },
     { name: "Testing (Jest, Cypress)", level: 75 },
@@ -279,42 +240,6 @@ function TechnicalSkills() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {frontendSkills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="space-y-2"
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-medium">{skill.name}</span>
-                <Badge variant="outline">{skill.level}%</Badge>
-              </div>
-              <div className="relative h-2 w-full bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  className="absolute top-0 left-0 h-full bg-primary rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1, delay: 0.2 + index * 0.05 }}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <h2 className="text-2xl font-bold mb-6 flex items-center">
-          <Server className="h-6 w-6 mr-2 text-primary" />
-          Backend Development
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {backendSkills.map((skill, index) => (
             <motion.div
               key={skill.name}
               initial={{ opacity: 0, x: -20 }}

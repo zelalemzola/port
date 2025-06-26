@@ -42,8 +42,11 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-center">
-          
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo/Brand */}
+          <Link href="/" className="text-2xl font-bold flex-shrink-0">
+            <span className="text-primary">Z</span>elalem
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-lg">
@@ -58,10 +61,10 @@ export default function Navbar() {
           </nav>
 
           {/* Mobile Navigation Toggle */}
-          <div className="flex items-center md:hidden space-x-4">
+          <div className="flex items-center md:hidden space-x-2">
             <ModeToggle />
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
             </Button>
           </div>
         </div>
@@ -77,14 +80,14 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="container mx-auto px-4 py-4 bg-background/95 backdrop-blur-md border-t">
-              <nav className="flex flex-col space-y-4">
+            <div className="container mx-auto px-4 py-6 bg-background/95 backdrop-blur-md border-t rounded-b-2xl shadow-lg">
+              <nav className="flex flex-col space-y-4 items-center">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-4 py-2 rounded-md text-lg ${
-                      pathname === link.href ? "bg-primary/10 text-primary font-medium" : "hover:bg-muted"
+                    className={`w-full text-center px-4 py-3 rounded-lg text-lg font-medium transition-colors ${
+                      pathname === link.href ? "bg-primary/10 text-primary" : "hover:bg-muted"
                     }`}
                   >
                     {link.label}
